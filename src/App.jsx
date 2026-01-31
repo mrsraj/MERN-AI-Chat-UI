@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import ComponentRouter from './Router/Router'
 
 function App() {
 
   return (
     <>
-      <h2>Chat With AI</h2>
+      <ComponentRouter/>
     </>
   )
 }
