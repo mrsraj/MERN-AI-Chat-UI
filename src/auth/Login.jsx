@@ -6,7 +6,7 @@ export default function Login() {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
-       const Navigate = useNavigate();
+    const Navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -14,7 +14,7 @@ export default function Login() {
 
         try {
             // Example API call
-            await fetch("http://localhost:5000/login", {
+            await fetch("http://localhost:3000/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password }),
@@ -29,7 +29,7 @@ export default function Login() {
     };
 
     const oauthLogin = (provider) => {
-        window.location.href = `http://localhost:5000/auth/${provider}`;
+        window.location.href = `http://localhost:5000/api/v1/auth/${provider}`;
     };
 
     return (
@@ -92,7 +92,7 @@ export default function Login() {
                     </button>
                 </form>
 
-                <p onClick={()=>{Navigate("/register")}} className="text-center text-sm text-gray-500 mt-6">
+                <p onClick={() => { Navigate("/register") }} className="text-center text-sm text-gray-500 mt-6">
                     Don’t have an account?{" "}
                     <span className="text-indigo-600 font-medium cursor-pointer">Sign Up</span>
                 </p>

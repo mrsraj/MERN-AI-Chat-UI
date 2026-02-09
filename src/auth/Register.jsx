@@ -23,7 +23,7 @@ export default function Register() {
         setLoading(true);
 
         try {
-            await fetch("http://localhost:5000/register", {
+            await fetch("http://localhost:3000/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ name, email, password }),
@@ -131,7 +131,7 @@ export default function Register() {
                     </button>
                 </form>
 
-                <p onClick={()=>{Navigate("/login")}} className="text-center text-sm text-gray-500 mt-6">
+                <p onClick={()=>{Navigate("/")}} className="text-center text-sm text-gray-500 mt-6">
                     Already have an account?{" "}
                     <span className="text-indigo-600 font-medium cursor-pointer">Login</span>
                 </p>
