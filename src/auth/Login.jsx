@@ -13,19 +13,24 @@ export default function Login() {
         setLoading(true);
 
         try {
-            // Example API call
-            await fetch("http://localhost:3000/login", {
+            const res = await fetch("http://localhost:5000/api/v1/auth/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
+                //credentials: "include", // 🔥 REQUIRED
                 body: JSON.stringify({ email, password }),
             });
 
+            const data = await res.json();
+            console.log("response data =", data);
+
             alert("Logged in successfully");
         } catch (err) {
+            console.error(err);
             alert("Login failed");
         } finally {
             setLoading(false);
         }
+
     };
 
     const oauthLogin = (provider) => {
