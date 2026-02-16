@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "../auth/Login";
 import Register from "../auth/Register";
+import Users from "../pages/UsersList";
 
 function ComponentRouter() {
   return (
@@ -8,6 +9,7 @@ function ComponentRouter() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/users" element={<Users />} />
       </Routes>
     </Router>
   );
