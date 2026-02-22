@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -16,7 +17,7 @@ export default function Login() {
             const res = await fetch("http://localhost:5000/api/v1/auth/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                //credentials: "include", // 🔥 REQUIRED
+                credentials: "include", // 🔥 REQUIRED
                 body: JSON.stringify({ email, password }),
             });
 
@@ -43,6 +44,11 @@ export default function Login() {
                 <h2 className="text-3xl font-bold text-center mb-6">
                     Welcome Back 👋
                 </h2>
+
+                <Helmet>
+                    <title>User Login</title>
+                    <meta name="description" content="This is the login page" />
+                </Helmet>
 
                 {/* OAuth Buttons */}
                 <div className="space-y-3 mb-6">
