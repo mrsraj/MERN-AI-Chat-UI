@@ -11,7 +11,8 @@ const Users = () => {
             try {
                 const res = await fetch("http://localhost:5000/api/v1/auth/users", {
                     method: "GET",
-                    credentials: "include", // 🔥 sends cookie automatically
+                    //headers: { "Content-Type": "application/json" },
+                    credentials: "include", // MUST
                 });
 
                 if (!res.ok) {
