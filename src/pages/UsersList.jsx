@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
+import api from "../api/chat.api";
 
 const Users = () => {
     const [users, setUsers] = useState([]);
@@ -9,17 +10,11 @@ const Users = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const res = await fetch("http://localhost:5000/api/v1/auth/users", {
+                const data = await api.fetchApi("/api/v1/auth/users", {
                     method: "GET",
-                    //headers: { "Content-Type": "application/json" },
-                    credentials: "include", // MUST
-                });
+                })
 
-                if (!res.ok) {
-                    throw new Error("Unauthorized or failed to fetch users");
-                }
-
-                const data = await res.json();
+                // const data = await res.json();
                 setUsers(data.users || []);
             } catch (err) {
                 console.error(err);
@@ -31,6 +26,16 @@ const Users = () => {
 
         fetchUsers();
     }, []);
+
+    async function test() {
+        const data = await api.fetchApi("/refresh", {
+            method: "GET",
+            credentials: "include"   // 🔥 VERY IMPORTANT
+        });
+
+        console.log(data);
+    }
+
 
     if (loading) {
         return (
@@ -53,6 +58,8 @@ const Users = () => {
             <h2 className="text-2xl font-bold mb-6 text-gray-800">
                 Users
             </h2>
+
+            <button onClick={test}>login</button>
 
             <Helmet>
                 <title>User-Page</title>
