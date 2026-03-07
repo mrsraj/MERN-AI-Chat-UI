@@ -4,6 +4,7 @@ import Register from "../auth/Register";
 
 //Provider
 import ProtectedRouter from "../ProtectedRouter/Router.jsx";
+import RestaurantChatbot from "../pages/ChatPage";
 
 //pages
 import ChatPage from "../pages/ChatPage";
@@ -16,6 +17,7 @@ function ComponentRouter() {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/users" element={<Users />} />
+        <Route path="/chat" element={<RestaurantChatbot/>} />
         <Route path="/chatpage" element={<ProtectedRouter>
           <ChatPage />
         </ProtectedRouter>} />
