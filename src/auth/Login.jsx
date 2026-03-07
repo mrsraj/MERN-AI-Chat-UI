@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import api from "../api/chat.api";
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -14,17 +15,13 @@ export default function Login() {
         setLoading(true);
 
         try {
-            const res = await fetch("http://localhost:5000/api/v1/auth/login", {
+            const data = await api.fetchApi("/api/v1/auth/login", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include", // 🔥 REQUIRED
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ email, password })
             });
 
-            const data = await res.json();
             console.log("response data =", data);
 
-            alert("Logged in successfully");
         } catch (err) {
             console.error(err);
             alert("Login failed");
@@ -35,7 +32,7 @@ export default function Login() {
     };
 
     const oauthLogin = (provider) => {
-        window.location.href = `http://localhost:5000/api/v1/auth/${provider}`;
+        window.location.href = `${api.baseurl}/api/v1/auth/${provider}`;
     };
 
     return (
