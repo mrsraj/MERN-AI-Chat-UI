@@ -1,8 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import api from "../api/chat.api";
 
+import BotMessage from "../components/formatter_component";
+import ChatLoader from "../components/chat.Loader";
+
 export default function RestaurantChatbot() {
-     
+
     const [isTyping, setIsTyping] = useState(false);
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([
@@ -22,7 +25,7 @@ export default function RestaurantChatbot() {
 
         setMessages(prev => [...prev, userMsg]);
         setMessage("");
-        setIsTyping(true); 
+        setIsTyping(true);
         try {
             const data = await api.fetchApi("/api/chat", {
                 method: "POST",
@@ -51,7 +54,7 @@ export default function RestaurantChatbot() {
     }, [messages, isTyping]);
 
     return (
-        <div className="h-screen w-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-300 p-2 sm:p-4">
+        <div className="h-screen w-full flex items-center justify-center bg-gradient-to-br from-slate-900 via-gray-800 to-slate-900 p-2 sm:p-4">
 
             <div className="w-full max-w-md bg-white border border-gray-200 shadow-2xl rounded-xl flex flex-col h-full sm:h-[585px]">
 
@@ -70,25 +73,21 @@ export default function RestaurantChatbot() {
                         >
                             <div
                                 className={`px-4 py-2 rounded-lg max-w-[80%] sm:max-w-[70%] text-sm sm:text-base shadow ${msg.type === "user"
-                                        ? "bg-blue-500 text-white"
-                                        : "bg-gray-100 text-gray-800"
+                                    ? "bg-blue-500 text-white"
+                                    : "bg-gray-100 text-gray-800"
                                     }`}
                             >
-                                {msg.text}
+                                {msg.type === "bot" ? (
+                                    <BotMessage text={msg.text} />
+                                ) : (
+                                    msg.text
+                                )}
                             </div>
                         </div>
                     ))}
 
                     {/* Typing Indicator */}
-                    {isTyping && (
-                        <div className="mb-3 flex justify-start">
-                            <div className="px-4 py-2 rounded-lg bg-gray-200 flex items-center gap-1">
-                                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></span>
-                                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce [animation-delay:0.2s]"></span>
-                                <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce [animation-delay:0.4s]"></span>
-                            </div>
-                        </div>
-                    )}
+                    {isTyping && <ChatLoader />}
 
                     <div ref={chatRef} />
                 </div>
