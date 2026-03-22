@@ -3,6 +3,7 @@ import api from "../api/chat.api";
 
 import BotMessage from "../components/formatter_component";
 import ChatLoader from "../components/chat.Loader";
+import SpeechInput from "../components/Speech.Input";
 
 export default function RestaurantChatbot() {
 
@@ -109,6 +110,8 @@ export default function RestaurantChatbot() {
                     >
                         Send
                     </button>
+
+                    <SpeechInput setMessage={setMessage}/>
 
                 </div>
 
